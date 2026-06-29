@@ -35,11 +35,16 @@ REQUIRED_LOGIN_SNIPPETS = [
 
 REQUIRED_REGISTER_SNIPPETS = [
     'action="${url.registrationAction}"',
-    'name="email"',
-    'name="firstName"',
-    'name="lastName"',
+    'name="locale"',
+    'name="username"',
     'name="password"',
     'name="password-confirm"',
+    'name="email"',
+    'name="fullname"',
+    'name="nickname"',
+    'name="birthdate"',
+    'name="gender"',
+    'name="termsAccepted"',
     '${url.loginUrl}',
 ]
 

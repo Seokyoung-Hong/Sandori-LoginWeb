@@ -100,7 +100,14 @@ body {
 .sandori-register-title {
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 8px;
+}
+
+.sandori-register-subtitle {
+    margin: 0 0 28px;
+    color: var(--sandori-muted);
+    font-size: 13px;
+    line-height: 1.45;
 }
 
 .sandori-social-login {
@@ -228,6 +235,22 @@ body {
     color: var(--sandori-muted);
 }
 
+.sandori-select {
+    appearance: auto;
+    -webkit-appearance: auto;
+}
+
+.sandori-required {
+    color: var(--sandori-danger);
+    font-weight: 700;
+}
+
+.sandori-optional {
+    color: var(--sandori-muted);
+    font-size: 11px;
+    font-weight: 500;
+}
+
 .sandori-input[aria-invalid="true"] {
     border-color: var(--sandori-danger);
 }
@@ -323,6 +346,25 @@ body {
     margin-bottom: 15px;
     text-align: center;
     color: #555;
+}
+
+.sandori-terms-text {
+    max-height: 170px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    padding: 14px;
+    border: 1px solid #edf0f2;
+    border-radius: 12px;
+    background: #fafafa;
+    color: #4D4D4D;
+    font-size: 12px;
+    line-height: 1.55;
+    text-align: left;
+}
+
+.sandori-terms-text a {
+    color: var(--sandori-primary);
+    font-weight: 700;
 }
 
 .sandori-checkbox-group {
