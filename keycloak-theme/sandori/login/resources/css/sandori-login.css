@@ -81,6 +81,12 @@ body {
     object-fit: contain;
 }
 
+.sandori-logo-small {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 18px;
+}
+
 .sandori-header {
     text-align: center;
 }
@@ -103,7 +109,15 @@ body {
     margin-bottom: 8px;
 }
 
-.sandori-register-subtitle {
+.sandori-action-title {
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 10px;
+}
+
+.sandori-register-subtitle,
+.sandori-action-subtitle {
     margin: 0 0 28px;
     color: var(--sandori-muted);
     font-size: 13px;
@@ -258,7 +272,8 @@ body {
 .sandori-btn-primary,
 .sandori-btn-login,
 .sandori-btn-signup,
-.sandori-btn-check {
+.sandori-btn-check,
+.sandori-btn-secondary {
     background-color: var(--sandori-primary);
     color: white;
     border: none;
@@ -272,6 +287,13 @@ body {
 
 .sandori-btn-login { margin-top: 10px; }
 .sandori-btn-signup { margin-top: 30px; }
+
+.sandori-btn-secondary {
+    margin-top: 10px;
+    background: #eef7f7;
+    color: var(--sandori-primary);
+    border: 1px solid rgba(78, 166, 170, 0.22);
+}
 
 .sandori-btn-check {
     height: 45px;
@@ -306,6 +328,53 @@ body {
 }
 
 .sandori-field-error { color: var(--sandori-danger); }
+
+.sandori-status-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 18px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.sandori-status-mail,
+.sandori-status-info {
+    background: #eef7f7;
+    color: var(--sandori-primary);
+}
+
+.sandori-status-error {
+    background: #fce8e6;
+    color: var(--sandori-danger);
+}
+
+.sandori-status-warning {
+    background: #fef7e0;
+    color: #8a5a00;
+}
+
+.sandori-info-card {
+    margin-bottom: 18px;
+    padding: 14px;
+    border: 1px solid #edf0f2;
+    border-radius: 14px;
+    background: #fafafa;
+    color: #4D4D4D;
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: left;
+}
+
+.sandori-action-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
 
 .sandori-footer-link-block,
 .sandori-signup-section {
