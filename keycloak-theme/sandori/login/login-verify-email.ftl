@@ -18,7 +18,7 @@
                 </div>
             </#if>
             <div class="sandori-info-card">
-                인증 메일의 링크를 눌러야 Sandori 서비스를 계속 이용할 수 있습니다. 메일이 보이지 않으면 스팸함도 확인해 주세요.
+                인증 메일의 링크를 눌러야 산돌이를 계속 이용할 수 있습니다. 메일이 보이지 않으면 스팸함도 확인해 주세요.
             </div>
             <form id="kc-verify-email-form" class="sandori-form" action="${url.loginAction}" method="post">
                 <button class="sandori-btn sandori-btn-login" type="submit">인증 메일 다시 보내기</button>
