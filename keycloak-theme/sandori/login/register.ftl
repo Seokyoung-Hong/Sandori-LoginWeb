@@ -3,11 +3,19 @@
     <#if section = "header">
         ${msg("registerTitle")}
     <#elseif section = "form">
-        <div class="sandori-auth-container">
+        <div class="sandori-auth-container sandori-register-container">
             <header class="sandori-header">
                 <h1 class="sandori-register-title">회원가입</h1>
                 <p class="sandori-register-subtitle">산돌이 식단 서비스를 이용하기 위한 정보를 입력해 주세요</p>
             </header>
+
+            <#if realm.internationalizationEnabled && locale.supported?size gt 1>
+                <nav class="sandori-locale-switcher" aria-label="언어 선택">
+                    <#list locale.supported as l>
+                        <a class="sandori-locale-option <#if l.languageTag == locale.currentLanguageTag>is-active</#if>" href="${l.url}">${l.languageTag?upper_case}</a>
+                    </#list>
+                </nav>
+            </#if>
 
             <#if message?has_content>
                 <div class="sandori-message sandori-message-${message.type}" role="alert">
@@ -21,10 +29,7 @@
 
                     <div class="sandori-input-group">
                         <label for="username">아이디 <span class="sandori-required" aria-hidden="true">*</span></label>
-                        <div class="sandori-input-wrapper">
-                            <input tabindex="1" id="username" class="sandori-input" name="username" value="${(register.formData.username!'')}" type="text" autocomplete="username" required aria-invalid="<#if messagesPerField.existsError('username')>true</#if>">
-                            <button type="button" class="sandori-btn sandori-btn-check" aria-label="Keycloak 저장 시 중복 확인">중복확인</button>
-                        </div>
+                        <input tabindex="1" id="username" class="sandori-input" name="username" value="${(register.formData.username!'')}" type="text" autocomplete="username" required aria-invalid="<#if messagesPerField.existsError('username')>true</#if>">
                         <#if messagesPerField.existsError('username')>
                             <span class="sandori-field-error" role="alert">${kcSanitize(messagesPerField.get('username'))?no_esc}</span>
                         </#if>
@@ -118,10 +123,11 @@
                             위 사항에 동의하지 않을 권리가 있으나, 필수 항목에 동의하지 않을 경우 회원가입 및 서비스 이용이 제한될 수 있습니다.
                         </div>
                         <div class="sandori-checkbox-group">
-                            <div class="sandori-checkbox-item">
+                            <label class="sandori-check-row sandori-terms-row" for="termsAccepted">
                                 <input tabindex="9" id="termsAccepted" name="termsAccepted" value="true" type="checkbox" required aria-invalid="<#if messagesPerField.existsError('termsAccepted')>true</#if>">
-                                <label for="termsAccepted">이용 약관에 동의합니다 <span class="sandori-required" aria-hidden="true">*</span></label>
-                            </div>
+                                <span class="sandori-checkmark" aria-hidden="true"></span>
+                                <span class="sandori-check-label">이용 약관에 동의합니다 <span class="sandori-required" aria-hidden="true">*</span></span>
+                            </label>
                             <#if messagesPerField.existsError('termsAccepted')>
                                 <span class="sandori-field-error" role="alert">${kcSanitize(messagesPerField.get('termsAccepted'))?no_esc}</span>
                             </#if>

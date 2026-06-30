@@ -36,10 +36,11 @@
                     </#if>
                 </div>
                 <#if isAppInitiatedAction??>
-                    <div class="sandori-checkbox-item">
+                    <label class="sandori-check-row" for="logout-sessions">
                         <input tabindex="3" id="logout-sessions" name="logout-sessions" type="checkbox" checked>
-                        <label for="logout-sessions">다른 기기에서 로그아웃</label>
-                    </div>
+                        <span class="sandori-checkmark" aria-hidden="true"></span>
+                        <span class="sandori-check-label">다른 기기에서 로그아웃</span>
+                    </label>
                 </#if>
                 <button tabindex="4" class="sandori-btn sandori-btn-login" type="submit">비밀번호 변경</button>
                 <#if isAppInitiatedAction??>

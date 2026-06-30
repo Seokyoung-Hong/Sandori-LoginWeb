@@ -23,10 +23,10 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     min-height: 100vh;
-    padding: 24px 16px;
-    background: var(--sandori-page-bg) !important;
+    padding: 0;
+    background: var(--sandori-card-bg) !important;
     color: var(--sandori-text);
 }
 
@@ -40,9 +40,10 @@ body {
 #kc-form,
 #kc-form-wrapper {
     width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     background: transparent !important;
     box-shadow: none !important;
     border: 0 !important;
@@ -52,17 +53,21 @@ body {
 
 #kc-header,
 #kc-header-wrapper,
-#kc-page-title {
+#kc-page-title,
+#kc-locale,
+#kc-locale-wrapper {
     display: none !important;
 }
 
 .sandori-auth-container {
+    position: relative;
     width: 100%;
-    max-width: 390px;
+    max-width: none;
+    min-height: 100vh;
     background: var(--sandori-card-bg);
-    border-radius: 32px;
-    padding: 40px 28px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    padding: 40px 22px 32px;
+    box-shadow: none;
 }
 
 .sandori-centered {
@@ -93,27 +98,26 @@ body {
 
 .sandori-header h1 {
     color: var(--sandori-text);
-    margin: 0;
 }
 
 .sandori-login-title {
     font-size: 22px;
     font-weight: 600;
     line-height: 1.5;
-    margin-bottom: 40px;
+    margin: 0 0 40px;
 }
 
 .sandori-register-title {
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin: 0 0 8px;
 }
 
 .sandori-action-title {
     font-size: 23px;
     font-weight: 800;
     line-height: 1.35;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
 }
 
 .sandori-register-subtitle,
@@ -122,6 +126,43 @@ body {
     color: var(--sandori-muted);
     font-size: 13px;
     line-height: 1.45;
+}
+
+.sandori-locale-switcher {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid #e6eaee;
+    border-radius: 999px;
+    background: rgba(248, 250, 251, 0.88);
+}
+
+.sandori-locale-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    min-height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    color: #8b949e;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.sandori-locale-option:hover,
+.sandori-locale-option:focus-visible,
+.sandori-locale-option.is-active {
+    background: #eef7f7;
+    color: var(--sandori-primary);
+    outline: none;
 }
 
 .sandori-social-login {
@@ -214,12 +255,6 @@ body {
     text-align: left;
 }
 
-.sandori-input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .sandori-input,
 .sandori-form input,
 .sandori-input-group input {
@@ -231,10 +266,6 @@ body {
     font-size: 14px;
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     background: #fff;
-}
-
-.sandori-input-wrapper .sandori-input {
-    flex-grow: 1;
 }
 
 .sandori-input:focus,
@@ -272,7 +303,6 @@ body {
 .sandori-btn-primary,
 .sandori-btn-login,
 .sandori-btn-signup,
-.sandori-btn-check,
 .sandori-btn-secondary {
     background-color: var(--sandori-primary);
     color: white;
@@ -293,15 +323,6 @@ body {
     background: #eef7f7;
     color: var(--sandori-primary);
     border: 1px solid rgba(78, 166, 170, 0.22);
-}
-
-.sandori-btn-check {
-    height: 45px;
-    padding: 0 15px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 700;
-    flex-shrink: 0;
 }
 
 .sandori-message {
@@ -442,44 +463,266 @@ body {
     gap: 12px;
 }
 
-.sandori-checkbox-item {
+.sandori-check-row {
     display: flex;
     align-items: center;
+    gap: 10px;
     font-size: 13px;
     color: #4D4D4D;
     cursor: pointer;
+    text-align: left;
 }
 
-.sandori-checkbox-item input[type="checkbox"] {
+.sandori-remember-row {
+    align-self: flex-start;
+    margin-top: -2px;
+    margin-bottom: 4px;
+}
+
+.sandori-terms-row {
+    align-items: flex-start;
+}
+
+.sandori-check-row input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
     margin: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+    padding: 0;
 }
 
-.sandori-checkbox-item label::before {
-    content: '';
-    display: inline-block;
+.sandori-checkmark {
+    display: inline-flex;
     width: 18px;
     height: 18px;
+    flex: 0 0 18px;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #A1A8B0;
     border-radius: 4px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-.sandori-checkbox-item input[type="checkbox"]:checked + label::before {
-    background-color: var(--sandori-primary);
-    border-color: var(--sandori-primary);
-    background-image: url("../img/check.png");
+    background: #fff;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 14px 14px;
+    transition: border-color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
 }
 
-@media (max-width: 420px) {
-    body { padding: 16px 12px; }
+.sandori-check-label {
+    line-height: 1.45;
+}
+
+.sandori-check-row input[type="checkbox"]:checked + .sandori-checkmark {
+    background-color: var(--sandori-primary);
+    border-color: var(--sandori-primary);
+    background-image: url("../img/check.png");
+}
+
+.sandori-check-row input[type="checkbox"]:focus-visible + .sandori-checkmark {
+    box-shadow: 0 0 0 2px rgba(78, 166, 170, 0.2);
+}
+
+@media (max-width: 767px), (max-device-width: 767px) {
+    .sandori-locale-switcher {
+        top: 14px;
+        right: 16px;
+    }
+}
+
+@media (min-width: 768px) and (min-device-width: 768px) {
+    body {
+        align-items: center;
+        background: var(--sandori-card-bg) !important;
+        padding-block: 6vh;
+        padding-inline: 0;
+    }
+
+    .login-pf-page,
+    #kc-container,
+    #kc-container-wrapper,
+    #kc-content,
+    #kc-content-wrapper,
+    #kc-form,
+    #kc-form-wrapper {
+        min-height: auto;
+        align-items: center;
+    }
+
     .sandori-auth-container {
-        border-radius: 24px;
-        padding: 32px 22px;
+        min-height: auto;
+    }
+
+    .sandori-login-container {
+        width: min(72vw, 720px);
+        max-width: none;
+        padding: 7% 12%;
+    }
+
+    .sandori-register-container {
+        width: min(84vw, 1120px);
+        max-width: none;
+        padding: 5.5% 8.5%;
+    }
+
+    .sandori-logo-container {
+        width: 128px;
+        height: 128px;
+        margin-bottom: 30px;
+    }
+
+    .sandori-logo-small {
+        width: 88px;
+        height: 88px;
+        margin-bottom: 22px;
+    }
+
+    .sandori-login-title {
+        font-size: 28px;
+        line-height: 1.45;
+        margin-bottom: 48px;
+    }
+
+    .sandori-register-title {
+        font-size: 30px;
+    }
+
+    .sandori-register-subtitle,
+    .sandori-action-subtitle {
+        font-size: 15px;
+        margin-bottom: 34px;
+    }
+
+    .sandori-action-title {
+        font-size: 28px;
+    }
+
+    .sandori-social-login {
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .sandori-divider {
+        font-size: 13px;
+        margin: 34px 0;
+    }
+
+    .sandori-form {
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .sandori-register-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 24px;
+        row-gap: 22px;
+    }
+
+    .sandori-register-form > .sandori-input-group,
+    .sandori-register-form > .sandori-terms-section,
+    .sandori-register-form > .sandori-btn-signup,
+    .sandori-register-form > .form-group {
+        grid-column: 1 / -1;
+    }
+
+    .sandori-register-form > .sandori-input-group:nth-of-type(6),
+    .sandori-register-form > .sandori-input-group:nth-of-type(7),
+    .sandori-register-form > .sandori-input-group:nth-of-type(8) {
+        grid-column: auto;
+    }
+
+    .sandori-input,
+    .sandori-form input,
+    .sandori-input-group input {
+        height: 56px;
+        border-radius: 12px;
+        padding: 0 18px;
+        font-size: 16px;
+    }
+
+    .sandori-btn {
+        min-height: 56px;
+        border-radius: 14px;
+        font-size: 16px;
+    }
+
+    .sandori-btn-login,
+    .sandori-btn-signup {
+        min-height: 62px;
+        font-size: 18px;
+    }
+
+    .sandori-btn-login {
+        margin-top: 12px;
+    }
+
+    .sandori-check-row {
+        font-size: 15px;
+    }
+
+    .sandori-checkmark {
+        width: 20px;
+        height: 20px;
+        flex-basis: 20px;
+        background-size: 15px 15px;
+    }
+
+    .sandori-input-group label {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .sandori-input-message,
+    .sandori-field-error {
+        font-size: 12px;
+    }
+
+    .sandori-signup-section,
+    .sandori-find-account-section,
+    .sandori-footer-link-block {
+        font-size: 16px;
+    }
+
+    .sandori-signup-section,
+    .sandori-footer-link-block {
+        margin-top: 36px;
+    }
+
+    .sandori-find-account-section {
+        margin-top: 18px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sandori-login-container {
+        width: min(64vw, 760px);
+    }
+
+    .sandori-register-container {
+        width: min(84vw, 1180px);
+    }
+
+    .sandori-login-title {
+        font-size: 30px;
+    }
+
+    .sandori-input,
+    .sandori-form input,
+    .sandori-input-group input {
+        height: 58px;
+    }
+
+    .sandori-btn {
+        min-height: 58px;
+    }
+
+    .sandori-btn-login,
+    .sandori-btn-signup {
+        min-height: 64px;
     }
 }

@@ -87,3 +87,49 @@ email theme: keycloak-theme/sandori/email
 ```
 
 실제 FreeMarker 렌더링은 Keycloak 서버에서 최종 확인해야 합니다. 이 저장소의 검증 스크립트는 파일 누락, 주요 Keycloak 액션/필드 연결, CSS/이미지 참조, 단순 FTL 태그 균형을 확인합니다.
+
+## 로컬 Keycloak 테스트 환경
+
+실제 Keycloak에서 `sandori` 테마를 바로 확인하려면 테스트용 compose 환경을 사용할 수 있습니다.
+
+```bash
+docker compose up
+```
+
+포함 내용:
+
+- `keycloak-theme/sandori` live mount
+- `sandori` realm 자동 import
+- Login theme / Email theme 자동 설정
+- 회원가입 활성화
+- Mailpit(`http://localhost:8025`) 메일 캡처
+
+### 로컬 접속 정보
+
+- Admin Console: `http://localhost:8080/admin`
+- Admin ID: `admin`
+- Admin Password: `admin`
+- Mailpit: `http://localhost:8025`
+
+테마가 적용된 로그인/회원가입 화면은 아래 URL에서 바로 확인할 수 있습니다.
+
+- 로그인: `http://localhost:8080/realms/Sandori/protocol/openid-connect/auth?client_id=auth-relay&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Frealms%2FSandori%2Faccount%2F&response_type=code&scope=openid`
+- 회원가입: `http://localhost:8080/realms/Sandori/protocol/openid-connect/registrations?client_id=auth-relay&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Frealms%2FSandori%2Faccount%2F&response_type=code&scope=openid`
+- 로그인 후 사용자 정보 페이지: `http://localhost:8080/realms/Sandori/account`
+
+같은 네트워크의 다른 기기에서 PC의 로컬 IP로 접속할 때는 `localhost` 대신 PC의 IPv4 주소를 사용합니다. 예를 들어 PC IP가 `192.168.0.10`이면 다음 형식입니다.
+
+- Admin Console: `http://192.168.0.10:8080/admin`
+- Mailpit: `http://192.168.0.10:8025`
+- 로그인: `http://192.168.0.10:8080/realms/Sandori/protocol/openid-connect/auth?client_id=sandol-meal-service&redirect_uri=http%3A%2F%2F192.168.0.10%3A8080%2Frealms%2FSandori%2Faccount&response_type=code&scope=openid`
+- 회원가입: `http://192.168.0.10:8080/realms/Sandori/protocol/openid-connect/registrations?client_id=sandol-meal-service&redirect_uri=http%3A%2F%2F192.168.0.10%3A8080%2Frealms%2FSandori%2Faccount&response_type=code&scope=openid`
+
+로컬 IP로 테스트할 때 `auth-relay` 클라이언트의 redirect URI가 맞지 않으면, import JSON에서 wildcard redirect를 허용하는 `sandol-meal-service` 클라이언트로 확인하면 됩니다.
+
+상세 사용법과 실제 열어볼 URL은 `docs/local-keycloak.md`를 참고하세요.
+
+로컬 환경 정의가 제대로 들어갔는지 확인하려면 다음도 실행할 수 있습니다.
+
+```bash
+python3 scripts/validate-local-keycloak.py
+```
