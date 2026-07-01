@@ -3,7 +3,7 @@
     <#if section = "header">
         ${msg("doLogIn")}
     <#elseif section = "form">
-        <div class="sandori-auth-container sandori-login-container sandori-centered">
+        <div class="sandori-auth-container sandori-centered">
             <div class="sandori-logo-container">
                 <img src="${url.resourcesPath}/img/logo1.png" alt="${realm.displayName!realm.name} 로고">
             </div>
@@ -12,12 +12,10 @@
                 <h1 class="sandori-login-title">쉽게 로그인하고<br>다양한 서비스를 이용해봐요</h1>
             </header>
 
-            <#if realm.internationalizationEnabled && locale.supported?size gt 1>
-                <nav class="sandori-locale-switcher" aria-label="언어 선택">
-                    <#list locale.supported as l>
-                        <a class="sandori-locale-option <#if l.languageTag == locale.currentLanguageTag>is-active</#if>" href="${l.url}">${l.languageTag?upper_case}</a>
-                    </#list>
-                </nav>
+            <#if message?has_content>
+                <div class="sandori-message sandori-message-${message.type}" role="alert">
+                    <span>${kcSanitize(message.summary)?no_esc}</span>
+                </div>
             </#if>
 
             <main>
@@ -36,12 +34,6 @@
                     <div class="sandori-divider">또는</div>
                 </#if>
 
-                <#if message?has_content>
-                    <div class="sandori-message sandori-message-${message.type}" role="alert">
-                        <span>${kcSanitize(message.summary)?no_esc}</span>
-                    </div>
-                </#if>
-
                 <form id="kc-form-login" class="sandori-form" action="${url.loginAction}" method="post">
                     <#if !usernameHidden??>
                         <input
@@ -52,7 +44,7 @@
                             value="${(login.username!'')}"
                             type="text"
                             autocomplete="username"
-                            placeholder="아이디를 입력하세요"
+                            placeholder="<#if !realm.loginWithEmailAllowed>${msg('username')}<#elseif !realm.registrationEmailAsUsername>${msg('usernameOrEmail')}<#else>${msg('email')}</#if>"
                             aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                         />
                     </#if>
@@ -64,25 +56,24 @@
                         name="password"
                         type="password"
                         autocomplete="current-password"
-                        placeholder="비밀번호를 입력하세요"
+                        placeholder="${msg('password')}"
                         aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                     />
 
-                    <#if messagesPerField.existsError('username','password') && !message?has_content>
+                    <#if messagesPerField.existsError('username','password')>
                         <span class="sandori-field-error" role="alert">
                             ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                         </span>
                     </#if>
 
                     <#if realm.rememberMe && !usernameHidden??>
-                        <label class="sandori-check-row sandori-remember-row" for="rememberMe">
+                        <label class="sandori-checkbox-item" for="rememberMe">
                             <#if login.rememberMe??>
                                 <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" checked>
                             <#else>
                                 <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox">
                             </#if>
-                            <span class="sandori-checkmark" aria-hidden="true"></span>
-                            <span class="sandori-check-label">${msg("rememberMe")}</span>
+                            <span>${msg("rememberMe")}</span>
                         </label>
                     </#if>
 
@@ -91,13 +82,13 @@
             </main>
 
             <footer>
-                <#if realm.password && !registrationDisabled?? && url.registrationUrl??>
+                <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
                     <div class="sandori-signup-section">
                         <span>계정이 없으시다면</span>
                         <a href="${url.registrationUrl}">회원가입하기</a>
                     </div>
                 </#if>
-                <#if realm.resetPasswordAllowed || url.loginResetCredentialsUrl??>
+                <#if realm.resetPasswordAllowed>
                     <div class="sandori-find-account-section">
                         <a href="${url.loginResetCredentialsUrl}">아이디 / 비밀번호 찾기</a>
                     </div>
