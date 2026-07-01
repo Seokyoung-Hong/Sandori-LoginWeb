@@ -81,11 +81,11 @@ SNIPPETS = {
     ],
     LOGIN / "error.ftl": [
         '${url.loginUrl}',
-        '요청을 처리하지 못했어요',
+        '${msg("errorHeading")}',
     ],
     LOGIN / "info.ftl": [
         'pageRedirectUri',
-        '계속하기',
+        '${msg("continueAction")}',
     ],
     LOGIN / "login-page-expired.ftl": [
         '${url.loginRestartFlowUrl}',
